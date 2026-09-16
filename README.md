@@ -70,4 +70,4 @@ Um erro de rede, relatório ausente, JSON inválido ou erro do scanner também b
 
 ## Referências e uso
 
-As fontes estão em `docs/REFERENCIAS.md` e no PDF. O código de exemplo e os roteiros foram preparados para esta atividade com apoio de IA. Nenhum commit deve ser atribuído a Aquiles sem ele ter feito ou revisado aquela contribuição. A participação e a apresentação de cada integrante precisam acontecer de verdade.
+As fontes estão em `docs/REFERENCIAS.md` e no PDF. 
