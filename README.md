@@ -23,8 +23,6 @@ O laboratório usa **njsscan e npm audit**, duas categorias diferentes. O alvo �
 
 O njsscan usa ERROR/WARNING/INFO. Nosso gate trata ERROR como HIGH, por decisão documentada do grupo. Isso não é uma nota CVSS fornecida pelo njsscan. No npm audit, um pacote pode reunir vários avisos de segurança.
 
-Os relatórios locais foram produzidos em 16/09/2026. O Windows precisou de uma ponte de execução, explicada em `docs/VALIDACAO.md`. Os prints do relatório mostram saídas reais locais e não são telas do GitHub Actions.
-
 ## Antes da aula
 
 Docker 24 ou mais recente, Compose v2, Git, conexão com a internet, 4 GB de memória e cerca de 3 GB de espaço livre. Use containers Linux. A primeira preparação deve acontecer antes da apresentação.
