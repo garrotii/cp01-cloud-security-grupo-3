@@ -23,8 +23,6 @@ O laboratório usa **njsscan e npm audit**, duas categorias diferentes. O alvo �
 
 O njsscan usa ERROR/WARNING/INFO. Nosso gate trata ERROR como HIGH, por decisão documentada do grupo. Isso não é uma nota CVSS fornecida pelo njsscan. No npm audit, um pacote pode reunir vários avisos de segurança.
 
-Os relatórios locais foram produzidos em 16/09/2026. O Windows precisou de uma ponte de execução, explicada em `docs/VALIDACAO.md`. Os prints do relatório mostram saídas reais locais e não são telas do GitHub Actions.
-
 ## Antes da aula
 
 Docker 24 ou mais recente, Compose v2, Git, conexão com a internet, 4 GB de memória e cerca de 3 GB de espaço livre. Use containers Linux. A primeira preparação deve acontecer antes da apresentação.
@@ -67,12 +65,6 @@ Não é preciso subir a aplicação para SAST e SCA. O Compose só executa os sc
 O fluxo `Segurança do grupo 3` analisa a versão corrigida em push e pull request. Em **Actions > Segurança do grupo 3 > Run workflow**, escolha `inseguro` para mostrar o build vermelho e depois `corrigido` para o verde. Os relatórios ficam disponíveis como artefatos mesmo quando o gate bloqueia.
 
 Um erro de rede, relatório ausente, JSON inválido ou erro do scanner também bloqueia a execução. O fluxo não usa `continue-on-error` para transformar falha em aprovação. Os relatórios locais incluídos não substituem os registros de duas execuções na plataforma.
-
-## Diferenças encontradas no enunciado
-
-O arquivo de apoio fala em três grupos, enquanto a tabela dos slides foi ajustada para cinco. Seguimos a coluna **Grupo 3** da tabela ajustada. Datree está arquivado desde 2024, e sua empresa encerrou a manutenção em 2023. StackHawk é uma plataforma comercial, mesmo tendo origem no ZAP. Mantivemos os nomes atribuídos e não fizemos substituições.
-
-O prazo aparece como 24 horas no texto e 48 horas no checklist. Prepare a publicação com pelo menos **48 horas** de antecedência. O professor ainda precisa validar as ferramentas e a escolha das duas do laboratório.
 
 ## Referências e uso
 
