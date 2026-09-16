@@ -90,7 +90,7 @@ Cada colega entrega um print do resultado final de sua própria execução e res
 
 Gabarito do grupo: **3 ERROR**, tratados como HIGH. O uso de `eval` aparece como **CWE-95**. A correção soma dois números validados, sem avaliar texto como código.
 
-Para deixar os próprios prints sem caminhos de pastas, mostre apenas a área do resultado, sem a linha que exibe a pasta do terminal. Os prints fornecidos pelo grupo são resumos dos seus relatórios locais e servem de plano B.
+Para deixar os próprios prints sem caminhos de pastas, mostre apenas a área do resultado, sem a linha que exibe a pasta do terminal. As capturas fornecidas pelo grupo vieram da execução local real e servem de plano B.
 
 ## 8. Encerrar
 
@@ -102,7 +102,7 @@ Resultado esperado: nenhum serviço deste Compose continua ativo. Os relatórios
 
 ## Plano B
 
-Abra `evidencias/index.html` no navegador e percorra as seis telas. Os seis PNGs acompanham a mesma sequência: preparação, SAST, SCA, gate bloqueado, correções e gate aprovado. Os JSONs permitem conferir os números.
+Abra a pasta `evidencias-docker` e percorra as sete capturas. Elas mostram a imagem no Docker Desktop, o ambiente, o relatório do njsscan, o npm audit inseguro, o bloqueio, a aprovação e o npm audit corrigido. Os JSONs permitem conferir os números.
 
 ## Problemas comuns
 

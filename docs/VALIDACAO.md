@@ -2,7 +2,7 @@
 
 ## Formatação do relatório
 
-O PDF usa papel A4, fonte Arial e margens de 3 cm na parte superior e esquerda e 2 cm na parte inferior e direita. O texto geral está em tamanho 12, justificado, com espaçamento 1,5 e recuo de 1,25 cm na primeira linha. Referências, códigos, paginação e legendas usam espaçamento simples; paginação e legendas usam tamanho 10. As seis capturas reais aparecem no Anexo B, sem linha de fonte abaixo dos prints e sem caminhos de pastas nas imagens. As linhas “Fonte:” e “Fontes:” também foram retiradas do fim das páginas de conteúdo.
+O PDF usa papel A4, fonte Arial e margens de 3 cm na parte superior e esquerda e 2 cm na parte inferior e direita. O texto geral está em tamanho 12, justificado, com entrelinha exata de 18 pontos, que corresponde a 1,5, e recuo de 1,25 cm na primeira linha. Referências, códigos, paginação e legendas usam espaçamento simples; paginação e legendas usam tamanho 10. As sete capturas reais aparecem junto das explicações relacionadas, sem linha de fonte e sem caminhos de pastas nas imagens. As linhas “Fonte:” e “Fontes:” também foram retiradas do fim das páginas de conteúdo.
 
 ## Execução registrada
 
@@ -27,6 +27,6 @@ As três ocorrências SAST foram revisadas pelo código. A biblioteca lodash foi
 
 - O Dockerfile foi construído do zero e o Compose executou os alvos `inseguro` e `corrigido` neste computador.
 - Datree e StackHawk não foram executados. Não há tempos ou taxas de falso positivo medidos para eles.
-- O Anexo B usa seis capturas reais do Windows Terminal: ambiente Docker/WSL, gate bloqueado, três achados do njsscan, npm audit inseguro, gate aprovado e npm audit corrigido. Elas não são execuções do GitHub Actions.
+- O relatório usa sete capturas reais: tela da imagem no Docker Desktop, ambiente Docker/WSL, relatório HTML do njsscan, npm audit inseguro, gate bloqueado, gate aprovado e npm audit corrigido. Elas não são execuções do GitHub Actions.
 - Os builds vermelho e verde no GitHub devem ser conferidos na plataforma após a publicação. O gate local não prova que os serviços do GitHub funcionaram.
 - Ensaio em dupla, participação na aula, revisão de Aquiles e publicação antecipada precisam acontecer de verdade.

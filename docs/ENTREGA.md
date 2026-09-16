@@ -9,7 +9,7 @@
 - Três falhas reais no código: XSS, execução de comando e uso de `eval`.
 - Uma dependência vulnerável na versão insegura e atualizada na corrigida.
 - Gate que bloqueia HIGH e CRITICAL, além de erros de execução e relatórios inválidos.
-- Relatórios JSON, SARIF, SBOM, tempos e seis prints reais da execução no Docker Desktop com WSL 2, sem caminhos de pastas.
+- Relatórios JSON, SARIF, SBOM, tempos e sete capturas reais do Docker Desktop, do njsscan e do terminal, sem caminhos de pastas.
 - Dockerfile, Docker Compose, roteiro do laboratório e fluxo do GitHub Actions.
 - Plano B com os prints e os relatórios locais.
 
@@ -23,10 +23,10 @@
 
 ## Fazer antes da aula
 
-1. Aquiles deve revisar de verdade o material e registrar sua própria contribuição.
+1. Aquiles e Leandro devem revisar de verdade o material e registrar suas próprias contribuições.
 2. Repetir, se desejado, os dois comandos do `LAB.md`; a construção e as duas execuções no Docker já foram validadas neste computador.
 3. Confirmar que o teste inseguro termina com código 1 e o corrigido com código 0.
-4. Ensaiar a apresentação em dupla para caber em 30 minutos.
+4. Ensaiar a apresentação com os três integrantes para caber em 30 minutos.
 5. Cada integrante deve fazer sua própria execução, tirar seu print e responder às duas perguntas.
 
 Não use commits ou falas falsas para representar a participação de outra pessoa. O histórico do Git deve mostrar apenas contribuições que realmente aconteceram.
