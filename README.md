@@ -1,7 +1,7 @@
 # Check Point 01 - Grupo 3
 
-**Leonardo Garroti e Aquiles Fonseca**  
-Turma: 2TDCPF. Disciplina: DevSecOps, módulo III.
+**Leonardo Garroti, Aquiles Fonseca e Leandro de Souza**  
+Turma: 2TDCPF. Disciplina: Cloud Security. Professor: Fabio Pires.
 
 Estudamos quatro ferramentas indicadas na tabela do professor:
 
@@ -58,7 +58,7 @@ Não é preciso subir a aplicação para SAST e SCA. O Compose só executa os sc
 - `docs/ROTEIRO-APRESENTACAO.md`: divisão sugerida da fala e dos 30 minutos.
 - `docs/ANALISE-ACHADOS.md`: três achados reais, classificação e correção.
 - `reports/`: JSON, SARIF, SBOM e tempos medidos.
-- `evidencias-reais/`: oito prints das saídas reais, sem caminhos de pastas.
+- `evidencias-docker/`: seis prints reais do Windows Terminal durante a execução no Docker Desktop com WSL 2, sem caminhos de pastas.
 - `USO-DE-IA.md`: como a IA ajudou e como o material foi conferido.
 - `docs/ENTREGA.md`: o que está pronto e o que depende da publicação e da aula.
 

@@ -2,7 +2,7 @@
 
 Uma aplicação pode ter falhas no código, nas bibliotecas usadas, na configuração da infraestrutura e no comportamento quando está funcionando. Por isso, um único teste de segurança não cobre tudo. O objetivo deste trabalho é entender quatro formas de procurar esses problemas e usar duas delas em um laboratório pequeno, que a turma consiga acompanhar.
 
-O grupo 3 é formado por Leonardo Garroti e Aquiles Fonseca. A tabela dos slides atribui ao grupo njsscan, npm audit, Datree e StackHawk. O arquivo de apoio descreve três grupos, mas a tabela ajustada tem cinco. Para escolher as ferramentas, este trabalho segue a coluna do grupo 3 da tabela ajustada, sem fazer substituições.
+O grupo 3 é formado por Leonardo Garroti, Aquiles Fonseca e Leandro de Souza. A tabela dos slides atribui ao grupo njsscan, npm audit, Datree e StackHawk. O arquivo de apoio descreve três grupos, mas a tabela ajustada tem cinco. Para escolher as ferramentas, este trabalho segue a coluna do grupo 3 da tabela ajustada, sem fazer substituições.
 
 ## Como a pesquisa foi feita
 
@@ -39,7 +39,6 @@ DAST significa teste dinâmico de segurança da aplicação. A ferramenta envia 
 
 As quatro categorias se completam. Algumas ferramentas têm mais de uma função, mas isso não muda o objeto que cada teste está analisando. Neste trabalho, a classificação segue o uso descrito acima.
 
-Fonte: OWASP (2025), documentação das quatro ferramentas e interpretação do alvo próprio.
 
 <!-- pagina -->
 # 3. Pipeline, shift-left e SBOM
@@ -62,7 +61,6 @@ Neste trabalho, npm sbom gerou uma SBOM no formato CycloneDX para cada alvo. Os 
 npm sbom --sbom-format=cyclonedx --package-lock-only
 ```
 
-Fonte: NIST (2022), OWASP (2025) e NPM, npm-sbom (s.d.). As SBOMs do alvo próprio acompanham a entrega.
 
 <!-- pagina -->
 # 4. njsscan: identificação e situação do projeto
@@ -83,7 +81,6 @@ A versão 1.0.0 exige Python 3.10 ou mais recente e fixa Semgrep 1.172.0. Fixar 
 
 O njsscan já estava indicado para o grupo e seu foco combina com o alvo Node.js. Foi possível começar com poucos arquivos, guardar um relatório e relacionar o alerta com a linha do código. Esse tamanho ajuda quem está aprendendo. Ele também deixa claro que um teste bem sucedido num alvo pequeno não comprova cobertura de uma aplicação inteira.
 
-Fontes: ABRAHAM, njsscan e setup.py (2026), PyPI (2026) e consulta registrada à API do GitHub.
 
 <!-- pagina -->
 # 5. njsscan: funcionamento e cobertura
@@ -106,7 +103,6 @@ Também houve um problema prático no Windows. libsast 3.1.8 pula a chamada sem�
 
 Esse caso mostrou por que devemos conferir se o scanner analisou o alvo, além de olhar apenas seu código de saída.
 
-Fontes: código dos projetos njsscan e libsast, ABRAHAM (2026) e relatórios locais do grupo.
 
 <!-- pagina -->
 # 6. njsscan: comandos, regras e integração
@@ -133,7 +129,6 @@ No editor, o relatório e as linhas apontadas ajudam a revisão. Um hook local a
 
 Ponto forte: revisão simples do alvo Node.js. Limite: cobertura das regras e cuidado com o ambiente. Alternativas incluem Semgrep direto e outros analisadores de JavaScript. Não houve troca porque a ferramenta foi atribuída ao grupo.
 
-Fontes: ABRAHAM, README e interface de linha de comando (2026), GITHUB, SARIF support (s.d.).
 
 <!-- pagina -->
 # 7. npm audit: identificação e situação do projeto
@@ -156,7 +151,6 @@ O lockfile registra as versões resolvidas, incluindo dependências de outras de
 
 Estrelas e frequência de commits não garantem que a base conheça toda falha possível. O audit aponta avisos disponíveis para versões identificadas, e não uma revisão completa do código da equipe.
 
-Fontes: NPM, changelog v6 (2018), LICENSE e documentação de npm audit (s.d.), registro npm e atividade registrada do GitHub.
 
 <!-- pagina -->
 # 8. npm audit: funcionamento e leitura do resultado
@@ -179,7 +173,6 @@ A versão vulnerável estava presente no lockfile. Esse é um verdadeiro positiv
 
 O npm audit não encontra o eval que a equipe escreveu. Também não serve, sozinho, como análise de licença, lista completa de pacotes maliciosos ou prova de que a aplicação está segura. Para esses objetivos, a equipe precisa de outras fontes e verificações.
 
-Fontes: NPM, npm-audit (s.d.), GitHub Advisory Database (2020; 2026) e relatórios reais dos dois alvos.
 
 <!-- pagina -->
 # 9. npm audit: comandos, integração e limites
@@ -204,7 +197,6 @@ No CI, o comando combina com a instalação de dependências e com um script que
 
 Ponto forte: pouca preparação extra em projetos npm. Limites: base de avisos, rede e ausência de análise da rota que usa cada função. Alternativas de SCA incluem OSV-Scanner e soluções que aceitam SBOM. A escolha do laboratório segue a ferramenta atribuída e o alvo Node.js.
 
-Fontes: NPM, npm-audit, npm-sbom e documentação de auditoria (s.d.).
 
 <!-- pagina -->
 # 10. Datree: identificação e situação atual
@@ -229,7 +221,6 @@ Não há taxa de falso positivo ou tempo medido de Datree neste trabalho. Os man
 
 Para uma implantação atual, seria preciso escolher uma ferramenta mantida e verificar se ela atende às políticas da equipe. OPA/Conftest e verificadores atuais de Kubernetes são alternativas para essa discussão, sujeitas às regras de substituição da atividade.
 
-Fontes: DATREE, repositório, README e release 1.9.19 (2023; 2024), consulta à API do GitHub.
 
 <!-- pagina -->
 # 11. Datree: funcionamento e exemplos de IaC
@@ -254,7 +245,6 @@ A documentação histórica cita suporte a políticas próprias, JSON Schema, Re
 
 No modo offline, a validação de esquema precisa receber esquemas locais quando desejada. O simples uso sem internet não traz automaticamente um conhecimento atualizado sobre novas versões do Kubernetes.
 
-Fontes: DATREE, offline mode, CLI arguments e README (s.d.; 2023). Os manifests são exemplos próprios.
 
 <!-- pagina -->
 # 12. Datree: uso e integração planejados
@@ -280,7 +270,6 @@ No CI, a CLI pode rodar antes da aplicação de manifests. Um hook local também
 
 Ponto forte da abordagem: regras claras para configuração Kubernetes, sem exigir o cluster em execução. Limite atual: manutenção encerrada. Não é correto transformar automaticamente toda violação de política em uma nota CVSS ou em um alerta HIGH. Isso precisaria de uma política de severidade própria, que não foi incluída no nosso gate.
 
-Fontes: DATREE, CLI arguments, offline mode e release 1.9.19 (s.d.; 2023).
 
 <!-- pagina -->
 # 13. StackHawk: identificação e situação atual
@@ -303,7 +292,6 @@ StackHawk foi mantido porque consta na tabela do grupo 3. Sua classificação co
 
 A ferramenta não foi executada neste laboratório. Não há conta, chave, relatório DAST, tempo medido ou taxa de falso positivo produzidos pelo grupo para ela.
 
-Fontes: STACKHAWK, HawkScan, changelog, anúncio do HSTE (2024), anúncio da empresa (2022) e notas HawkScan 6.0.0 (2026).
 
 <!-- pagina -->
 # 14. StackHawk: como o DAST funciona
@@ -326,7 +314,6 @@ Um teste pela rede não faz um inventário completo das dependências instaladas
 
 Se for usado depois pelo grupo, o alvo deve ser a aplicação própria num ambiente local isolado, sem dados reais. A publicação do repositório não dá autorização para varrer sites públicos ou a rede da escola. Este trabalho não executou varredura ativa em terceiros.
 
-Fontes: STACKHAWK, HawkScan, configuração, FAQ e troubleshooting (s.d.). Comparação baseada no alvo próprio.
 
 <!-- pagina -->
 # 15. StackHawk: configuração e integração
@@ -339,7 +326,7 @@ hawk version
 hawk scan --sarif-artifact
 ```
 
-Esses comandos ilustram a preparação e a execução descritas pelo fornecedor. Não fazem parte das duas ferramentas obrigatórias do laboratório. Antes de executá-los, a dupla precisaria configurar sua conta e confirmar o alvo próprio que vai receber o teste.
+Esses comandos ilustram a preparação e a execução descritas pelo fornecedor. Não fazem parte das duas ferramentas obrigatórias do laboratório. Antes de executá-los, o grupo precisaria configurar sua conta e confirmar o alvo próprio que vai receber o teste.
 
 Um arquivo stackhawk.yml informa o identificador da aplicação, o ambiente e o endereço do alvo. A configuração também pode tratar autenticação, descrição OpenAPI e exclusões de rotas. Uma exclusão deve ser justificada, pois ela pode retirar cobertura de uma parte do sistema.
 
@@ -353,7 +340,6 @@ DAST geralmente entra depois que o ambiente de teste está pronto. Rodá-lo em t
 
 Ponto forte proposto: organização de testes e resultados para aplicações e APIs. Limites neste trabalho: conta e chave ausentes, execução não realizada e produto comercial. ZAP e outros scanners abertos são alternativas para avaliar com o professor, considerando as ferramentas já atribuídas aos demais grupos.
 
-Fontes: STACKHAWK, CLI, configuração, instalação e integrações (s.d.).
 
 <!-- pagina -->
 # 16. Laboratório e análise dos três achados
@@ -374,7 +360,6 @@ Na amostra, foram zero falsos positivos em três alertas SAST revisados, ou 0%. 
 
 Os três alertas SAST se relacionam a A05:2025 - Injection. O grupo fez esse mapeamento para a edição atual, porque algumas regras preservam rótulos OWASP antigos. Os exemplos próprios não receberam CVE nem nota CVSS do scanner.
 
-Fontes: relatórios do grupo, MITRE CWE-78, CWE-79 e CWE-95 (s.d.), OWASP (2025).
 
 <!-- pagina -->
 # 17. Gate, resultados e comparação
@@ -399,7 +384,6 @@ Relatório ausente, formato inválido ou erro de execução também bloqueiam. U
 
 Os resultados locais comprovam a execução dos scanners e do gate local. Eles não comprovam publicação ou execução no GitHub. Os builds da plataforma precisam ser verificados depois da publicação. Da mesma forma, o Dockerfile e o Compose precisam de teste do zero num computador com Docker, que não estava disponível na preparação.
 
-Fonte: scripts, relatórios e fluxo preparados pelo grupo. Referências de integração: documentação oficial das ferramentas.
 
 <!-- pagina -->
 # 18. Avaliação crítica e conclusão
@@ -418,6 +402,4 @@ Para um projeto Node.js, a equipe pode analisar o código e as dependências ced
 
 A recomendação é combinar as categorias de acordo com a aplicação e revisar os resultados. Nenhuma ferramenta garante sozinha a segurança do sistema. SAST, SCA, IaC e DAST observam objetos diferentes, e seus resultados dependem das regras, da base de avisos, das entradas e do ambiente.
 
-Antes da entrega, a dupla ainda precisa realizar a revisão conjunta, testar Docker numa máquina adequada, conferir os builds da plataforma e ensaiar dentro de 30 minutos. Essas ações reais não podem ser substituídas por texto, por um histórico de commits inventado ou por prints de outra execução.
-
-Fontes: resultados locais do grupo e fontes oficiais citadas ao longo da pesquisa. O apoio de IA e os limites de validação estão declarados no anexo.
+Antes da entrega, o grupo ainda precisa realizar a revisão conjunta, testar Docker numa máquina adequada, conferir os builds da plataforma e ensaiar dentro de 30 minutos. Essas ações reais não podem ser substituídas por texto, por um histórico de commits inventado ou por prints de outra execução.

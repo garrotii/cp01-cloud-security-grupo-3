@@ -1,6 +1,6 @@
 # Laboratório: njsscan + npm audit
 
-Grupo 3: Leonardo Garroti e Aquiles Fonseca. Tempo previsto em aula: 12 minutos, com a imagem pronta.
+Grupo 3: Leonardo Garroti, Aquiles Fonseca e Leandro de Souza. Tempo previsto em aula: 12 minutos, com a imagem pronta.
 
 ## 0. Preparação antes da aula
 

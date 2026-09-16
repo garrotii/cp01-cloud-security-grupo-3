@@ -5,7 +5,7 @@
     "eval_nodejs": {
       "files": [
         {
-          "file_path": "targets\\inseguro\\app.js",
+          "file_path": "targets/inseguro/app.js",
           "match_lines": [
             17,
             17
@@ -27,7 +27,7 @@
     "express_xss": {
       "files": [
         {
-          "file_path": "targets\\inseguro\\app.js",
+          "file_path": "targets/inseguro/app.js",
           "match_lines": [
             8,
             9
@@ -49,7 +49,7 @@
     "generic_os_command_exec": {
       "files": [
         {
-          "file_path": "targets\\inseguro\\app.js",
+          "file_path": "targets/inseguro/app.js",
           "match_lines": [
             12,
             14

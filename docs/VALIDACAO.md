@@ -2,13 +2,13 @@
 
 ## Formatação do relatório
 
-O PDF usa papel A4, fonte Arial e margens de 3 cm na parte superior e esquerda e 2 cm na parte inferior e direita. O texto geral está em tamanho 12, justificado, com espaçamento 1,5 e recuo de 1,25 cm na primeira linha. Referências, códigos, paginação e legendas usam espaçamento simples; paginação e legendas usam tamanho 10. As oito capturas reais aparecem no Anexo B, sem linha de fonte abaixo dos prints e sem caminhos de pastas nas imagens.
+O PDF usa papel A4, fonte Arial e margens de 3 cm na parte superior e esquerda e 2 cm na parte inferior e direita. O texto geral está em tamanho 12, justificado, com espaçamento 1,5 e recuo de 1,25 cm na primeira linha. Referências, códigos, paginação e legendas usam espaçamento simples; paginação e legendas usam tamanho 10. As seis capturas reais aparecem no Anexo B, sem linha de fonte abaixo dos prints e sem caminhos de pastas nas imagens. As linhas “Fonte:” e “Fontes:” também foram retiradas do fim das páginas de conteúdo.
 
 ## Execução registrada
 
-Data: 16/09/2026. Ambiente: Windows, Python 3.12, Node 24.19.0, npm 11.12.0, njsscan 1.0.0, Semgrep 1.172.0 e libsast 3.1.8.
+Data: 16/09/2026. Ambiente final: Docker Desktop 29.8.0, Docker Compose 5.5.1, WSL 2 com Ubuntu e contêiner Linux baseado em Node 24. O contêiner usa npm 11.12.0, njsscan 1.0.0, Semgrep 1.172.0 e libsast 3.1.8.
 
-O npm audit foi executado normalmente. O njsscan precisou de `scripts/njsscan_local.py`: libsast 3.1.8 retorna sem executar a análise semântica quando detecta Windows. A ponte local troca apenas a função que chama o Semgrep, mantendo as regras e os exportadores do njsscan. Ela chama a versão oficial Windows do Semgrep com os mesmos argumentos usados no Linux. Nenhum alerta foi criado à mão.
+O npm audit e o njsscan foram executados dentro do contêiner Linux. A versão insegura terminou bloqueada, com três alertas SAST e uma dependência HIGH. A versão corrigida terminou aprovada, sem alertas. Nenhum alerta foi criado à mão.
 
 O JSON e o SARIF foram gerados pelos exportadores do njsscan. O arquivo execucao.json registra `adaptacao_windows: true`. No Linux, o script scan.py usa `python -m njsscan`, sem a ponte. O README oficial do njsscan ainda indica suporte a Mac e Linux, por isso o container Linux é a forma recomendada para a turma.
 
@@ -25,8 +25,8 @@ As três ocorrências SAST foram revisadas pelo código. A biblioteca lodash foi
 
 ## Limites
 
-- Não havia Docker ou WSL instalado no ambiente de preparação. O Dockerfile e o Compose foram preparados, mas não foram executados do zero nesse computador.
+- O Dockerfile foi construído do zero e o Compose executou os alvos `inseguro` e `corrigido` neste computador.
 - Datree e StackHawk não foram executados. Não há tempos ou taxas de falso positivo medidos para eles.
-- O Anexo B usa oito capturas das saídas reais locais: três achados do relatório HTML do njsscan, npm audit e gate inseguro, além das três saídas corrigidas. Elas não são execuções do GitHub Actions.
+- O Anexo B usa seis capturas reais do Windows Terminal: ambiente Docker/WSL, gate bloqueado, três achados do njsscan, npm audit inseguro, gate aprovado e npm audit corrigido. Elas não são execuções do GitHub Actions.
 - Os builds vermelho e verde no GitHub devem ser conferidos na plataforma após a publicação. O gate local não prova que os serviços do GitHub funcionaram.
 - Ensaio em dupla, participação na aula, revisão de Aquiles e publicação antecipada precisam acontecer de verdade.

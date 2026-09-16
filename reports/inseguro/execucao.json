@@ -1,23 +1,23 @@
 {
-  "data_utc": "2026-09-16T17:48:37.630103+00:00",
+  "data_utc": "2026-09-16T18:56:00.832399+00:00",
   "alvo": "inseguro",
-  "ambiente": "win32",
-  "python": "3.12.14",
-  "adaptacao_windows": true,
+  "ambiente": "linux",
+  "python": "3.11.2",
+  "adaptacao_windows": false,
   "execucoes": [
     {
       "ferramenta": "njsscan-json",
-      "segundos": 7.494,
+      "segundos": 4.809,
       "exit_code": 1
     },
     {
       "ferramenta": "njsscan-sarif",
-      "segundos": 7.558,
+      "segundos": 4.731,
       "exit_code": 1
     },
     {
       "ferramenta": "npm-audit",
-      "segundos": 0.894,
+      "segundos": 0.731,
       "exit_code": 1
     }
   ]
