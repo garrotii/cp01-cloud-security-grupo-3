@@ -59,7 +59,6 @@ Não é preciso subir a aplicação para SAST e SCA. O Compose só executa os sc
 - `docs/ANALISE-ACHADOS.md`: três achados reais, classificação e correção.
 - `reports/`: JSON, SARIF, SBOM e tempos medidos.
 - `evidencias-docker/`: sete capturas reais do Docker Desktop, do relatório HTML do njsscan e do terminal, sem caminhos de pastas.
-- `USO-DE-IA.md`: como a IA ajudou e como o material foi conferido.
 - `docs/ENTREGA.md`: o que está pronto e o que depende da publicação e da aula.
 
 ## GitHub Actions
@@ -68,12 +67,3 @@ O fluxo `Segurança do grupo 3` analisa a versão corrigida em push e pull reque
 
 Um erro de rede, relatório ausente, JSON inválido ou erro do scanner também bloqueia a execução. O fluxo não usa `continue-on-error` para transformar falha em aprovação. Os relatórios locais incluídos não substituem os registros de duas execuções na plataforma.
 
-## Diferenças encontradas no enunciado
-
-O arquivo de apoio fala em três grupos, enquanto a tabela dos slides foi ajustada para cinco. Seguimos a coluna **Grupo 3** da tabela ajustada. Datree está arquivado desde 2024, e sua empresa encerrou a manutenção em 2023. StackHawk é uma plataforma comercial, mesmo tendo origem no ZAP. Mantivemos os nomes atribuídos e não fizemos substituições.
-
-O prazo aparece como 24 horas no texto e 48 horas no checklist. Prepare a publicação com pelo menos **48 horas** de antecedência. O professor ainda precisa validar as ferramentas e a escolha das duas do laboratório.
-
-## Referências e uso
-
-As fontes estão em `docs/REFERENCIAS.md` e no PDF. O código de exemplo e os roteiros foram preparados para esta atividade com apoio de IA. Nenhum commit deve ser atribuído a Aquiles sem ele ter feito ou revisado aquela contribuição. A participação e a apresentação de cada integrante precisam acontecer de verdade.
