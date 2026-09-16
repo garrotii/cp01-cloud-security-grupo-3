@@ -13,13 +13,11 @@
 - Dockerfile, Docker Compose, roteiro do laboratório e fluxo do GitHub Actions.
 - Plano B em GIF com 5 minutos e 20 segundos, usando os prints reais e os relatórios locais.
 
-## Conferir depois da publicação
+## Execuções publicadas
 
-1. Abrir o repositório no GitHub e confirmar que todas as pastas foram enviadas.
-2. Rodar o fluxo manual com `inseguro` e guardar o link do build vermelho.
-3. Rodar o fluxo manual com `corrigido` e guardar o link do build verde.
-4. Baixar os artefatos dos dois builds e conferir os relatórios.
-5. Proteger a branch principal para exigir o teste de segurança, se o professor pedir.
+- A versão `inseguro` foi bloqueada na execução 35144999487.
+- A versão `corrigido` foi aprovada na execução 35144977032.
+- Os links estão em `docs/EXECUCOES-GITHUB.md`.
 
 ## Fazer antes da aula
 
