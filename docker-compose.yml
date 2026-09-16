@@ -1,0 +1,7 @@
+services:
+  lab:
+    build: .
+    image: cp01-grupo3:1.0
+    volumes:
+      - ./reports:/lab/reports
+    command: ["inseguro"]
