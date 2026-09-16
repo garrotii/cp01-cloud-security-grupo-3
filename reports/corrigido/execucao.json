@@ -1,0 +1,24 @@
+{
+  "data_utc": "2026-09-16T18:56:18.195113+00:00",
+  "alvo": "corrigido",
+  "ambiente": "linux",
+  "python": "3.11.2",
+  "adaptacao_windows": false,
+  "execucoes": [
+    {
+      "ferramenta": "njsscan-json",
+      "segundos": 5.077,
+      "exit_code": 0
+    },
+    {
+      "ferramenta": "njsscan-sarif",
+      "segundos": 4.825,
+      "exit_code": 0
+    },
+    {
+      "ferramenta": "npm-audit",
+      "segundos": 0.655,
+      "exit_code": 0
+    }
+  ]
+}
