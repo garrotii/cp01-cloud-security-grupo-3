@@ -2,8 +2,8 @@
 
 ## Pronto
 
-- Pesquisa em PDF com capa, sumário, 18 páginas de conteúdo, referências e anexos.
-- Apresentação com 29 slides, notas para a fala, nove imagens reais e cópia em PDF.
+- Pesquisa em PDF com capa, sumário, 15 páginas de conteúdo, uma página de referências e uma página de uso de IA.
+- Apresentação `APRESENTACAO-GRUPO-3-NATURE` com 29 slides, nove imagens reais e cópia em PDF.
 - Laboratório próprio em Node.js com versões insegura e corrigida.
 - Duas categorias executadas: njsscan (SAST) e npm audit (SCA).
 - Três falhas reais no código: XSS, execução de comando e uso de `eval`.

@@ -1,4 +1,4 @@
-# 1. Introdução e objetivo
+# 1. Introdução e categorias
 
 A segurança de uma aplicação depende do código, das bibliotecas e da configuração do ambiente. Algumas falhas só aparecem quando o sistema está funcionando. Por isso, este trabalho compara ferramentas que verificam partes diferentes de um projeto.
 
@@ -10,8 +10,10 @@ Na parte prática, usamos duas versões de uma aplicação própria em Node.js: 
 
 A pesquisa consultou a documentação e os repositórios dos projetos. O laboratório foi executado em Docker Desktop com WSL 2. O njsscan e o npm audit foram usados na prática. Datree e StackHawk foram estudados, mas não executados.
 
-<!-- pagina -->
-# 2. SAST, SCA, IaC e DAST
+
+
+
+## SAST, SCA, IaC e DAST
 
 Cada categoria tem um objetivo. A tabela apresenta o que ela verifica e em qual condição o teste acontece.
 
@@ -25,10 +27,9 @@ SAST e SCA costumam causar confusão. O SAST procura uma falha criada no própri
 
 No laboratório, retirar o uso de eval corrige um alerta SAST. Atualizar o lodash corrige o alerta SCA. Uma mudança não substitui a outra.
 
-IaC ajuda a revisar arquivos como Kubernetes e Terraform antes da publicação. DAST envia requisições para a aplicação em execução. As quatro categorias se completam.
-
 <!-- pagina -->
-# 3. Pipeline, shift-left e SBOM
+
+# 2. Pipeline, shift-left e SBOM
 
 Um pipeline executa tarefas em sequência: obter o código, instalar dependências, testar e preparar uma versão. Os testes de segurança podem entrar nessa sequência.
 
@@ -46,8 +47,17 @@ SBOM é uma lista dos componentes usados pelo software. Ela ajuda a responder ra
 npm sbom --sbom-format=cyclonedx --package-lock-only
 ```
 
+
+
+## Aplicação no pipeline
+
+O gate transforma a política do grupo em uma decisão automática. Se o njsscan encontra ERROR ou o npm audit encontra HIGH ou CRITICAL, a execução termina com código 1. Um erro de ferramenta ou um relatório inválido termina com código 2. Essa separação evita aprovar uma entrega quando o scanner não conseguiu concluir o teste.
+
+A verificação antecipada reduz o tempo entre a criação e a correção da falha. Mesmo assim, shift-left não significa concentrar todos os testes no início. O DAST continua depois do build porque observa rotas, respostas e configurações que só existem com a aplicação em execução. A SBOM permanece como registro para consultas futuras.
+
 <!-- pagina -->
-# 4. njsscan: identificação e situação do projeto
+
+# 3. njsscan: identificação e uso
 
 O njsscan é um scanner SAST para aplicações Node.js. Seu mantenedor é Ajin Abraham. A ferramenta é escrita em Python, usa libsast e chama o Semgrep para parte da análise. A licença indicada no projeto é LGPL-3.0.
 
@@ -57,24 +67,10 @@ O njsscan foi escolhido porque trabalha com Node.js, gera JSON, SARIF e HTML e c
 
 O projeto teve uma atualização recente depois de um período com poucas mudanças. Por isso, uma equipe que usar a ferramenta deve acompanhar novas versões e revisar se as regras continuam atuais.
 
-<!-- pagina -->
-# 5. njsscan: funcionamento e cobertura
 
-O njsscan procura padrões perigosos e também usa regras do Semgrep. Ele analisa a estrutura do código sem precisar iniciar a aplicação.
 
-Na versão insegura, o relatório encontrou três problemas:
 
-| Regra | Problema | CWE |
-| express_xss | Entrada do usuário em HTML | CWE-79 |
-| generic_os_command_exec | Entrada usada em comando | CWE-78 |
-| eval_nodejs | Entrada usada em eval | CWE-95 |
-
-A leitura do código confirmou os três casos. Por isso, eles foram classificados como verdadeiros positivos. A figura apresenta o relatório HTML gerado pelo njsscan no contêiner e permite conferir as regras encontradas.
-
-O scanner não encontra todo tipo de falha. Problemas de login, regra de negócio ou configuração em execução podem exigir outros testes.
-
-<!-- pagina -->
-# 6. njsscan: comandos e integração
+## njsscan: comandos e integração
 
 A instalação pode ser feita com pip. No trabalho, as versões ficam fixadas para que todos usem o mesmo ambiente.
 
@@ -91,7 +87,42 @@ O arquivo de configuração permite ignorar caminhos e escolher regras. Uma regr
 No pipeline preparado, o njsscan roda antes do gate. Um alerta ERROR é tratado como nível HIGH pela regra adotada pelo grupo. Essa regra serve para o laboratório e não cria uma nota CVSS.
 
 <!-- pagina -->
-# 7. npm audit: identificação e situação do projeto
+
+# 4. njsscan: resultado real
+
+O njsscan procura padrões perigosos e também usa regras do Semgrep. Ele analisa a estrutura do código sem precisar iniciar a aplicação.
+
+Na versão insegura, o relatório encontrou três problemas:
+
+| Regra | Problema | CWE |
+| express_xss | Entrada do usuário em HTML | CWE-79 |
+| generic_os_command_exec | Entrada usada em comando | CWE-78 |
+| eval_nodejs | Entrada usada em eval | CWE-95 |
+
+A leitura do código confirmou os três casos. Por isso, eles foram classificados como verdadeiros positivos. A figura apresenta o relatório HTML gerado pelo njsscan no contêiner e permite conferir as regras encontradas.
+
+O scanner não encontra todo tipo de falha. Problemas de login, regra de negócio ou configuração em execução podem exigir outros testes.
+
+<!-- pagina -->
+
+# 5. njsscan: análise dos achados
+
+Os três alertas foram revisados no código. A entrada do usuário chegava ao HTML, ao comando do sistema e ao eval. Como o caminho entre a entrada e a operação perigosa estava visível, os três casos foram classificados como verdadeiros positivos.
+
+| Regra | CWE | Correção aplicada |
+| express_xss | CWE-79 | Resposta em texto simples |
+| generic_os_command_exec | CWE-78 | Retirada da execução de comando |
+| eval_nodejs | CWE-95 | Soma de números validados |
+
+A amostra teve zero falso positivo entre três alertas, mas ela é pequena e contém falhas intencionais. Esse resultado não pode ser usado para afirmar que a ferramenta terá a mesma precisão em um sistema real. O nível ERROR do njsscan foi tratado como HIGH pelo gate do grupo. Essa equivalência é uma regra do laboratório e não uma nota CVSS.
+
+O alerta de XSS foi resolvido ao responder texto simples. O alerta de comando deixou de existir quando a chamada exec foi retirada. No cálculo, o eval foi trocado por conversão e soma de números. As três mudanças corrigem a causa do problema, sem usar comentários para esconder alertas.
+
+Um resultado do SAST precisa ser lido junto do código. A regra aponta um caminho suspeito, mas a equipe decide se ele pode acontecer e qual mudança preserva a função esperada. Esse cuidado evita aceitar um risco real ou gastar tempo com um alerta sem efeito no projeto.
+
+<!-- pagina -->
+
+# 6. npm audit: identificação e uso
 
 O npm audit faz parte do npm CLI. Ele é usado em projetos JavaScript e Node.js para comparar as dependências do projeto com avisos de segurança conhecidos.
 
@@ -101,19 +132,10 @@ A versão usada no contêiner foi a 11.12.0. O comando lê o package-lock.json e
 
 Como o comando já faz parte do npm, sua instalação e seu uso são simples. Porém, o resultado depende dos avisos de segurança publicados e de um lockfile que represente as dependências do projeto.
 
-<!-- pagina -->
-# 8. npm audit: resultado e interpretação
 
-A versão insegura usa lodash 4.17.15. O npm audit encontrou um pacote com severidade HIGH. Esse pacote aparece em vários avisos, mas o resumo conta o pacote vulnerável uma vez.
 
-A presença da versão vulnerável foi confirmada. Isso não prova que todos os avisos podem ser explorados pelas rotas do exemplo. Para responder essa pergunta, seria necessário analisar como cada função da biblioteca é usada.
 
-No gate do laboratório, HIGH e CRITICAL bloqueiam a versão. Depois da atualização para lodash 4.18.1, o comando informou zero vulnerabilidades.
-
-A imagem mostra a saída real do npm audit executado dentro do contêiner na versão insegura.
-
-<!-- pagina -->
-# 9. npm audit: comandos, integração e limites
+## npm audit: comandos, integração e limites
 
 Os comandos principais são curtos:
 
@@ -133,7 +155,34 @@ O npm audit pode entrar no CI logo depois da instalação das dependências. Ele
 Um resultado com zero vulnerabilidades significa apenas que nenhum aviso conhecido foi encontrado nas dependências analisadas naquele momento.
 
 <!-- pagina -->
-# 10. Datree: identificação e situação atual
+
+# 7. npm audit: resultado real
+
+A versão insegura usa lodash 4.17.15. O npm audit encontrou um pacote com severidade HIGH. Esse pacote aparece em vários avisos, mas o resumo conta o pacote vulnerável uma vez.
+
+A presença da versão vulnerável foi confirmada. Isso não prova que todos os avisos podem ser explorados pelas rotas do exemplo. Para responder essa pergunta, seria necessário analisar como cada função da biblioteca é usada.
+
+No gate do laboratório, HIGH e CRITICAL bloqueiam a versão. Depois da atualização para lodash 4.18.1, o comando informou zero vulnerabilidades.
+
+A imagem mostra a saída real do npm audit executado dentro do contêiner na versão insegura.
+
+<!-- pagina -->
+
+# 8. npm audit: limites e SBOM
+
+O npm audit confirmou que o lockfile continha lodash 4.17.15. A presença da versão vulnerável é um verdadeiro positivo de inventário. Mesmo assim, o relatório não prova que todos os avisos ligados ao pacote podem ser explorados pelas rotas do exemplo.
+
+Depois da atualização para lodash 4.18.1, o novo teste informou zero vulnerabilidades conhecidas. Esse resultado vale para a base consultada naquele momento. Novos avisos podem aparecer e exigir outra atualização.
+
+A SBOM complementa o teste porque registra os componentes e as versões presentes no projeto. Neste trabalho, o npm produziu arquivos CycloneDX a partir dos lockfiles. O documento ajuda a responder se uma biblioteca afetada está presente, mas não substitui a análise do código nem o teste da aplicação.
+
+O comando npm audit fix pode resolver atualizações compatíveis. O uso de --force exige mais cuidado, pois pode instalar uma versão fora da faixa esperada pelo projeto. Depois de qualquer atualização, a equipe deve repetir os testes da aplicação e conferir se o comportamento foi mantido.
+
+Um falso negativo pode acontecer quando o lockfile está incompleto ou quando a falha ainda não foi publicada. Um alerta também pode ter pouco efeito prático quando a função vulnerável não é usada. Por isso, o inventário confirma a presença do componente, enquanto a revisão do uso confirma o risco para a aplicação.
+
+<!-- pagina -->
+
+# 9. Datree: identificação e funcionamento
 
 Datree foi uma ferramenta de segurança para arquivos Kubernetes. O CLI era escrito em Go e distribuído com licença Apache-2.0. Ele avaliava arquivos YAML antes de chegarem ao cluster.
 
@@ -143,8 +192,10 @@ A falta de manutenção limita sua adoção. O Datree ainda serve para estudar p
 
 O enunciado atribui Datree ao grupo, por isso o nome foi mantido na pesquisa. Para um uso real atual, seria melhor comparar alternativas mantidas, como Checkov, Trivy ou Kubescape.
 
-<!-- pagina -->
-# 11. Datree: funcionamento e exemplo de IaC
+
+
+
+## Datree: funcionamento e exemplo de IaC
 
 O Datree lê um arquivo Kubernetes, verifica se o YAML é válido e aplica regras de política. Uma regra pode avisar sobre privilégio alto, ausência de limites de recursos ou uso inseguro de imagem.
 
@@ -159,7 +210,8 @@ A análise acontece antes do deploy. Isso reduz a chance de uma configuração r
 A ferramenta não verifica o comportamento da aplicação, a segurança da imagem ou as permissões reais do ambiente. Esses pontos precisam de outras verificações.
 
 <!-- pagina -->
-# 12. Datree: uso e integração planejados
+
+# 10. Datree: integração e avaliação
 
 O CLI podia ser instalado por script, pacote ou contêiner. Também podia rodar em GitHub Actions, GitLab CI e outros sistemas de CI.
 
@@ -173,8 +225,17 @@ Neste trabalho, o Datree não foi executado porque o projeto está arquivado. Fo
 
 Para adotar uma alternativa, o grupo deveria repetir o mesmo processo do laboratório: fixar versão, executar contra um exemplo conhecido, guardar o relatório e definir um gate claro.
 
+
+
+## Avaliação para uso atual
+
+O principal limite do Datree é a falta de manutenção. Uma ferramenta de segurança precisa acompanhar mudanças do Kubernetes e novas formas de configuração. Usar um projeto arquivado pode gerar regras antigas, problemas de instalação e falta de correção para erros do próprio scanner.
+
+Em uma escolha atual, a equipe deveria comparar alternativas mantidas, verificar a licença, fixar uma versão e testar arquivos com resultado conhecido. Também seria necessário registrar a saída em JSON ou SARIF e definir quais políticas bloqueiam o pipeline. O exemplo deste trabalho permite repetir essa avaliação sem afirmar que o Datree foi executado.
+
 <!-- pagina -->
-# 13. StackHawk: identificação e situação atual
+
+# 11. StackHawk: identificação e funcionamento
 
 StackHawk é uma plataforma de testes DAST. Seu scanner é chamado HawkScan e utiliza uma base ligada ao OWASP ZAP. O uso comum acontece por contêiner.
 
@@ -184,8 +245,10 @@ A versão 6.0.0 do HawkScan foi anunciada em 2026. O produto continua ativo. Mes
 
 O StackHawk foi mantido na pesquisa por estar na lista do grupo. Ele não foi usado no laboratório obrigatório.
 
-<!-- pagina -->
-# 14. StackHawk: como o DAST funciona
+
+
+
+## StackHawk: como o DAST funciona
 
 O DAST testa a aplicação funcionando. Ele descobre rotas, envia entradas de teste e observa respostas. Isso permite encontrar problemas que dependem do servidor e da configuração do ambiente.
 
@@ -203,7 +266,8 @@ A autenticação exige configuração extra quando as rotas são protegidas. Sem
 DAST pode gerar falso positivo e também deixar rotas sem teste. Ele deve ser executado somente contra um alvo próprio ou autorizado.
 
 <!-- pagina -->
-# 15. StackHawk: configuração e integração
+
+# 12. StackHawk: configuração e avaliação
 
 A configuração usa um arquivo YAML com o endereço da aplicação, o identificador do projeto e opções de ambiente. Segredos devem ficar nas variáveis protegidas do CI.
 
@@ -217,8 +281,17 @@ O scanner pode rodar depois que o ambiente de teste estiver disponível. O relat
 
 StackHawk não substitui SAST ou SCA. Ele observa o sistema por fora e não conhece todo o caminho interno do código.
 
+
+
+## Cuidados na execução
+
+O endereço do alvo deve apontar apenas para um ambiente autorizado. O scanner também precisa de limites de tempo e de requisições para não atrapalhar outros testes. Quando existe login, a configuração deve permitir que o HawkScan alcance as rotas protegidas. Sem isso, o relatório pode dar uma falsa impressão de cobertura.
+
+Os alertas do DAST precisam de revisão porque uma resposta incomum pode não representar uma falha explorável. A equipe deve guardar o relatório, reproduzir o caso e repetir o teste após a correção. Para o trabalho do grupo 3, essa execução ficou como planejamento; nenhum número ou resultado do StackHawk foi inventado.
+
 <!-- pagina -->
-# 16. Laboratório e ambiente Docker
+
+# 13. Laboratório e ambiente Docker
 
 O laboratório usa uma aplicação Node.js criada para a atividade. Há um alvo inseguro e outro corrigido. Os dois ficam na mesma imagem para facilitar a comparação.
 
@@ -229,7 +302,8 @@ A construção e as duas execuções foram realizadas no Docker Desktop com WSL 
 Esse ambiente evita que cada colega precise instalar todas as ferramentas diretamente no Windows.
 
 <!-- pagina -->
-# 17. Gate e comparação dos resultados
+
+# 14. Gate e versão insegura
 
 O gate lê os relatórios do njsscan e do npm audit. A política usada foi:
 
@@ -245,7 +319,8 @@ Na versão corrigida, os dois scanners terminaram com código 0. O status foi AP
 O print abaixo registra o bloqueio da versão insegura. Na página seguinte, os prints mostram a aprovação após as correções. Esses resultados comprovam os testes locais no Docker.
 
 <!-- pagina -->
-# 18. Avaliação crítica e conclusão
+
+# 15. Versão corrigida e conclusão
 
 O laboratório mostrou por que SAST e SCA são diferentes. O njsscan encontrou falhas escritas no app.js. O npm audit encontrou uma versão vulnerável do lodash.
 

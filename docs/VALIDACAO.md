@@ -28,5 +28,4 @@ As três ocorrências SAST foram revisadas pelo código. A biblioteca lodash foi
 - O Dockerfile foi construído do zero e o Compose executou os alvos `inseguro` e `corrigido` neste computador.
 - Datree e StackHawk não foram executados. Não há tempos ou taxas de falso positivo medidos para eles.
 - O relatório usa sete capturas reais: tela da imagem no Docker Desktop, ambiente Docker/WSL, relatório HTML do njsscan, npm audit inseguro, gate bloqueado, gate aprovado e npm audit corrigido. Elas não são execuções do GitHub Actions.
-- Os builds vermelho e verde no GitHub devem ser conferidos na plataforma após a publicação. O gate local não prova que os serviços do GitHub funcionaram.
-- Ensaio em dupla, participação na aula, revisão de Aquiles e publicação antecipada precisam acontecer de verdade.
+- Os builds vermelho e verde foram executados no GitHub e estão registrados em `docs/EXECUCOES-GITHUB.md`.

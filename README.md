@@ -52,14 +52,14 @@ Não é preciso subir a aplicação para SAST e SCA. O Compose só executa os sc
 
 ## Material
 
-- `docs/PESQUISA-GRUPO-3.pdf`: pesquisa com 18 páginas de conteúdo.
-- `docs/APRESENTACAO-GRUPO-3.pptx`: 29 slides editáveis, com notas para a fala.
-- `docs/APRESENTACAO-GRUPO-3.pdf`: cópia de segurança dos slides.
-- `docs/ROTEIRO-APRESENTACAO.md`: divisão sugerida da fala e dos 30 minutos.
+- `docs/PESQUISA-GRUPO-3.pdf`: pesquisa com 15 páginas de conteúdo, uma página de referências e uma página de uso de IA.
+- `docs/APRESENTACAO-GRUPO-3-NATURE.pptx`: 29 slides editáveis no novo layout.
+- `docs/APRESENTACAO-GRUPO-3-NATURE.pdf`: cópia em PDF dos slides.
+- `docs/ROTEIRO-APRESENTACAO.md`: tabela simples com tempo e slides.
 - `docs/ANALISE-ACHADOS.md`: três achados reais, classificação e correção.
 - `reports/`: JSON, SARIF, SBOM e tempos medidos.
 - `evidencias-docker/`: nove capturas reais do Docker Desktop, do relatório HTML do njsscan, do terminal e do GitHub Actions, sem caminhos de pastas.
-- `USO-DE-IA.md`: como a IA ajudou e como o material foi conferido.
+- `USO-DE-IA.md`: declaração simples sobre revisão do trabalho e organização dos slides.
 - `docs/ENTREGA.md`: o que está pronto e o que depende da publicação e da aula.
 
 ## GitHub Actions
@@ -76,4 +76,4 @@ O prazo aparece como 24 horas no texto e 48 horas no checklist. Prepare a public
 
 ## Referências e uso
 
-As fontes estão em `docs/REFERENCIAS.md` e no PDF. O código de exemplo e os roteiros foram preparados para esta atividade com apoio de IA. Nenhum commit deve ser atribuído a Aquiles sem ele ter feito ou revisado aquela contribuição. A participação e a apresentação de cada integrante precisam acontecer de verdade.
+As fontes principais estão em `docs/REFERENCIAS.md` e no PDF. A inteligência artificial foi usada apenas para a revisão do trabalho e para a organização dos slides.
