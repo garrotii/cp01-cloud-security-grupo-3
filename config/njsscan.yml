@@ -1,0 +1,8 @@
+- nodejs-extensions:
+  - .js
+  ignore-paths:
+  - node_modules
+  severity-filter:
+  - ERROR
+  - WARNING
+  - INFO
