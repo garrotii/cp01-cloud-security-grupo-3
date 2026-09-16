@@ -1,0 +1,13 @@
+{
+  "name": "cp01-grupo3-corrigido",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Aplicação própria para a aula de DevSecOps",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "5.2.1",
+    "lodash": "4.18.1"
+  }
+}

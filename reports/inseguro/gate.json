@@ -1,0 +1,38 @@
+{
+  "alvo": "inseguro",
+  "status": "BLOQUEADO",
+  "exit_code": 1,
+  "politica": "SAST ERROR = HIGH por decisão do grupo; SCA HIGH/CRITICAL bloqueiam",
+  "contagens": {
+    "sast_high": 3,
+    "sast_moderate": 0,
+    "sast_low": 0,
+    "sca_high": 1,
+    "sca_critical": 0,
+    "sca_moderate": 0,
+    "sca_low": 0
+  },
+  "achados_sast": [
+    {
+      "regra": "eval_nodejs",
+      "nivel_original": "ERROR",
+      "nivel_gate": "HIGH",
+      "ocorrencias": 1,
+      "cwe": "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')"
+    },
+    {
+      "regra": "express_xss",
+      "nivel_original": "ERROR",
+      "nivel_gate": "HIGH",
+      "ocorrencias": 1,
+      "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+    },
+    {
+      "regra": "generic_os_command_exec",
+      "nivel_original": "ERROR",
+      "nivel_gate": "HIGH",
+      "ocorrencias": 1,
+      "cwe": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+    }
+  ]
+}
