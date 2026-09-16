@@ -3,13 +3,13 @@
 ## Pronto
 
 - Pesquisa em PDF com capa, sumário, 18 páginas de conteúdo, referências e anexos.
-- Apresentação com 24 slides, notas para a fala e cópia em PDF.
+- Apresentação com 29 slides, notas para a fala, nove imagens reais e cópia em PDF.
 - Laboratório próprio em Node.js com versões insegura e corrigida.
 - Duas categorias executadas: njsscan (SAST) e npm audit (SCA).
 - Três falhas reais no código: XSS, execução de comando e uso de `eval`.
 - Uma dependência vulnerável na versão insegura e atualizada na corrigida.
 - Gate que bloqueia HIGH e CRITICAL, além de erros de execução e relatórios inválidos.
-- Relatórios JSON, SARIF, SBOM, tempos e sete capturas reais do Docker Desktop, do njsscan e do terminal, sem caminhos de pastas.
+- Relatórios JSON, SARIF, SBOM, tempos e nove capturas reais do Docker Desktop, dos scanners, do terminal e do GitHub Actions, sem caminhos de pastas.
 - Dockerfile, Docker Compose, roteiro do laboratório e fluxo do GitHub Actions.
 - Plano B em GIF com 5 minutos e 20 segundos, usando os prints reais e os relatórios locais.
 

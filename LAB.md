@@ -102,7 +102,7 @@ Resultado esperado: nenhum serviço deste Compose continua ativo. Os relatórios
 
 ## Plano B
 
-Abra a pasta `evidencias-docker` e percorra as sete capturas. Elas mostram a imagem no Docker Desktop, o ambiente, o relatório do njsscan, o npm audit inseguro, o bloqueio, a aprovação e o npm audit corrigido. Os JSONs permitem conferir os números.
+Abra a pasta `evidencias-docker` e percorra as nove capturas. Elas mostram a imagem no Docker Desktop, o ambiente, o relatório do njsscan, o npm audit inseguro, o bloqueio, a aprovação, o npm audit corrigido e os dois resultados do GitHub Actions. Os JSONs permitem conferir os números.
 
 ## Problemas comuns
 

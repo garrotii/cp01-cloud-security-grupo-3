@@ -53,12 +53,12 @@ Não é preciso subir a aplicação para SAST e SCA. O Compose só executa os sc
 ## Material
 
 - `docs/PESQUISA-GRUPO-3.pdf`: pesquisa com 18 páginas de conteúdo.
-- `docs/APRESENTACAO-GRUPO-3.pptx`: 24 slides editáveis, com notas para a fala.
+- `docs/APRESENTACAO-GRUPO-3.pptx`: 29 slides editáveis, com notas para a fala.
 - `docs/APRESENTACAO-GRUPO-3.pdf`: cópia de segurança dos slides.
 - `docs/ROTEIRO-APRESENTACAO.md`: divisão sugerida da fala e dos 30 minutos.
 - `docs/ANALISE-ACHADOS.md`: três achados reais, classificação e correção.
 - `reports/`: JSON, SARIF, SBOM e tempos medidos.
-- `evidencias-docker/`: sete capturas reais do Docker Desktop, do relatório HTML do njsscan e do terminal, sem caminhos de pastas.
+- `evidencias-docker/`: nove capturas reais do Docker Desktop, do relatório HTML do njsscan, do terminal e do GitHub Actions, sem caminhos de pastas.
 - `USO-DE-IA.md`: como a IA ajudou e como o material foi conferido.
 - `docs/ENTREGA.md`: o que está pronto e o que depende da publicação e da aula.
 
