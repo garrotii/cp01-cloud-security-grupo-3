@@ -11,7 +11,7 @@
 - Gate que bloqueia HIGH e CRITICAL, além de erros de execução e relatórios inválidos.
 - Relatórios JSON, SARIF, SBOM, tempos e sete capturas reais do Docker Desktop, do njsscan e do terminal, sem caminhos de pastas.
 - Dockerfile, Docker Compose, roteiro do laboratório e fluxo do GitHub Actions.
-- Plano B com os prints e os relatórios locais.
+- Plano B em GIF com 5 minutos e 20 segundos, usando os prints reais e os relatórios locais.
 
 ## Conferir depois da publicação
 
