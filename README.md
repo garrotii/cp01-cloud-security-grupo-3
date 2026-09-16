@@ -48,17 +48,6 @@ O primeiro comando deve terminar com código 1, pois encontrou falhas. O segundo
 
 Não é preciso subir a aplicação para SAST e SCA. O Compose só executa os scanners, sem publicar portas. O npm audit precisa consultar o registro npm. Nenhuma varredura ativa é feita em sites de terceiros.
 
-## Material
-
-- `docs/PESQUISA-GRUPO-3.pdf`: pesquisa com 15 páginas de conteúdo, uma página de referências e uma página de uso de IA.
-- `docs/APRESENTACAO-GRUPO-3-NATURE.pptx`: 29 slides editáveis no novo layout.
-- `docs/APRESENTACAO-GRUPO-3-NATURE.pdf`: cópia em PDF dos slides.
-- `docs/ROTEIRO-APRESENTACAO.md`: tabela simples com tempo e slides.
-- `docs/ANALISE-ACHADOS.md`: três achados reais, classificação e correção.
-- `reports/`: JSON, SARIF, SBOM e tempos medidos.
-- `evidencias-docker/`: nove capturas reais do Docker Desktop, do relatório HTML do njsscan, do terminal e do GitHub Actions, sem caminhos de pastas.
-- `USO-DE-IA.md`: declaração simples sobre revisão do trabalho e organização dos slides.
-- `docs/ENTREGA.md`: o que está pronto e o que depende da publicação e da aula.
 
 ## GitHub Actions
 
@@ -66,6 +55,3 @@ O fluxo `Segurança do grupo 3` analisa a versão corrigida em push e pull reque
 
 Um erro de rede, relatório ausente, JSON inválido ou erro do scanner também bloqueia a execução. O fluxo não usa `continue-on-error` para transformar falha em aprovação. Os relatórios locais incluídos não substituem os registros de duas execuções na plataforma.
 
-## Referências e uso
-
-As fontes principais estão em `docs/REFERENCIAS.md` e no PDF. A inteligência artificial foi usada apenas para a revisão do trabalho e para a organização dos slides.
