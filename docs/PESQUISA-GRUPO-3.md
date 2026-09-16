@@ -1,10 +1,10 @@
 # 1. Introdução e objetivo
 
-Uma aplicação pode ter problema no código, nas bibliotecas, na configuração da infraestrutura ou apenas quando está funcionando. Por isso, um único scanner não consegue verificar tudo.
+A segurança de uma aplicação depende do código, das bibliotecas e da configuração do ambiente. Algumas falhas só aparecem quando o sistema está funcionando. Por isso, este trabalho compara ferramentas que verificam partes diferentes de um projeto.
 
 O grupo 3 é formado por Leonardo Garroti, Aquiles Fonseca e Leandro de Souza. As ferramentas indicadas para o grupo são njsscan, npm audit, Datree e StackHawk. Elas representam SAST, SCA, segurança de infraestrutura como código e DAST.
 
-O laboratório compara duas versões de uma aplicação pequena em Node.js. A primeira tem falhas colocadas de propósito. A segunda contém as correções. O objetivo é observar o que cada ferramenta encontra e entender por que o gate bloqueia ou aprova uma versão.
+Na parte prática, usamos duas versões de uma aplicação própria em Node.js: uma com falhas intencionais e outra corrigida. A comparação mostra os alertas encontrados, as mudanças no código e a decisão do gate, que bloqueia a entrega quando encontra problemas graves.
 
 ## Método usado
 
@@ -13,7 +13,7 @@ A pesquisa consultou a documentação e os repositórios dos projetos. O laborat
 <!-- pagina -->
 # 2. SAST, SCA, IaC e DAST
 
-As quatro categorias olham partes diferentes do sistema.
+Cada categoria tem um objetivo. A tabela apresenta o que ela verifica e em qual condição o teste acontece.
 
 | Categoria | O que verifica | Precisa da aplicação rodando? |
 | SAST | Código escrito pela equipe | Não |
@@ -38,7 +38,7 @@ Um pipeline executa tarefas em sequência: obter o código, instalar dependênci
 | Test | DAST |
 | Deploy | Nova revisão da IaC |
 
-Shift-left significa verificar mais cedo. Encontrar um eval perigoso durante o desenvolvimento custa menos do que descobrir o problema depois da entrega. Mesmo assim, o DAST continua necessário porque observa a aplicação completa funcionando.
+Shift-left significa trazer os testes de segurança para o início do desenvolvimento. Assim, a equipe pode corrigir uma falha antes de entregar a aplicação. O DAST completa esse processo ao testar o sistema em funcionamento.
 
 SBOM é uma lista dos componentes usados pelo software. Ela ajuda a responder rapidamente se uma biblioteca com falha está presente. Neste trabalho, o npm gerou arquivos CycloneDX a partir dos lockfiles.
 
@@ -69,7 +69,7 @@ Na versão insegura, o relatório encontrou três problemas:
 | generic_os_command_exec | Entrada usada em comando | CWE-78 |
 | eval_nodejs | Entrada usada em eval | CWE-95 |
 
-A leitura do código confirmou os três casos. Por isso, eles foram classificados como verdadeiros positivos. A imagem desta página veio do relatório HTML criado pelo njsscan dentro do contêiner.
+A leitura do código confirmou os três casos. Por isso, eles foram classificados como verdadeiros positivos. A figura apresenta o relatório HTML gerado pelo njsscan no contêiner e permite conferir as regras encontradas.
 
 O scanner não encontra todo tipo de falha. Problemas de login, regra de negócio ou configuração em execução podem exigir outros testes.
 
@@ -99,7 +99,7 @@ O npm CLI é mantido pela equipe do npm dentro da GitHub, empresa da Microsoft. 
 
 A versão usada no contêiner foi a 11.12.0. O comando lê o package-lock.json e envia informações das dependências para o serviço de auditoria do registro npm.
 
-A ferramenta é prática porque já faz parte do fluxo comum do Node.js. Sua principal limitação é depender da qualidade dos avisos publicados e da presença de um lockfile correto.
+Como o comando já faz parte do npm, sua instalação e seu uso são simples. Porém, o resultado depende dos avisos de segurança publicados e de um lockfile que represente as dependências do projeto.
 
 <!-- pagina -->
 # 8. npm audit: resultado e interpretação
@@ -139,7 +139,7 @@ Datree foi uma ferramenta de segurança para arquivos Kubernetes. O CLI era escr
 
 O projeto foi arquivado no GitHub em outubro de 2024. A própria empresa informou o fim da manutenção em 2023. A última versão encontrada foi a 1.9.19.
 
-Esse estado muda a avaliação da ferramenta. Ela ainda ajuda a estudar regras de Kubernetes, mas não é uma boa escolha para iniciar um projeto novo que precisa receber atualizações.
+A falta de manutenção limita sua adoção. O Datree ainda serve para estudar políticas de Kubernetes, mas um projeto novo deve considerar uma ferramenta que continue recebendo atualizações.
 
 O enunciado atribui Datree ao grupo, por isso o nome foi mantido na pesquisa. Para um uso real atual, seria melhor comparar alternativas mantidas, como Checkov, Trivy ou Kubescape.
 
@@ -242,7 +242,7 @@ Na versão insegura, três alertas SAST e um pacote HIGH produziram código de s
 
 Na versão corrigida, os dois scanners terminaram com código 0. O status foi APROVADO.
 
-As imagens mostram as duas saídas reais do contêiner. O resultado aprovado cobre apenas os testes executados.
+O print abaixo registra o bloqueio da versão insegura. Na página seguinte, os prints mostram a aprovação após as correções. Esses resultados comprovam os testes locais no Docker.
 
 <!-- pagina -->
 # 18. Avaliação crítica e conclusão
@@ -251,8 +251,8 @@ O laboratório mostrou por que SAST e SCA são diferentes. O njsscan encontrou f
 
 As correções também foram diferentes: retirar operações perigosas no código e atualizar a dependência. Depois disso, o gate aprovou a nova versão e o npm audit mostrou zero vulnerabilidades.
 
-O njsscan é simples para um exemplo Node.js, mas depende das regras disponíveis. O npm audit é fácil de usar, mas depende dos avisos conhecidos. Datree está arquivado. StackHawk continua ativo, porém sua plataforma tem partes comerciais.
+O njsscan depende das regras disponíveis; o npm audit, dos avisos conhecidos. Datree está arquivado e StackHawk possui partes comerciais.
 
 Para um projeto pequeno, a sequência sugerida é SAST e SCA desde o começo, análise de IaC antes do deploy e DAST em um ambiente de teste autorizado.
 
-O resultado final não significa que a aplicação está livre de falhas. Ele mostra que os problemas preparados para o laboratório foram encontrados e corrigidos.
+A aprovação confirma a correção dos alertas analisados. Outros testes e a revisão do código continuam necessários.
